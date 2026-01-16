@@ -6,6 +6,7 @@ import type { Listing } from '../types/Listing';
 import { useAuth } from '../context/AuthContext';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import API_URL from '../api/config';
 
 const amenityIcons: Record<string, React.ElementType> = {
     wifi: Wifi,
@@ -49,11 +50,11 @@ const ListingDetails = () => {
     useEffect(() => {
         const fetchListing = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/listings/${id}`);
+                const response = await axios.get(`${API_URL}/api/listings/${id}`);
                 setListing(response.data);
 
                 // Fetch unavailable dates
-                const datesResponse = await axios.get(`http://localhost:5000/api/bookings/unavailable-dates/${id}`);
+                const datesResponse = await axios.get(`${API_URL}/api/bookings/unavailable-dates/${id}`);
                 setUnavailableDates(datesResponse.data);
             } catch (err) {
                 console.error('Error fetching listing:', err);
@@ -107,7 +108,7 @@ const ListingDetails = () => {
 
             console.log('Creating checkout session...');
             // Create Checkout Session
-            const response = await axios.post('http://localhost:5000/api/payments/create-checkout-session', {
+            const response = await axios.post(`${API_URL}/api/payments/create-checkout-session`, {
                 listingId: Number(id),
                 checkIn: checkIn.toISOString(),
                 checkOut: checkOut.toISOString(),

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Loader2, Calendar, MapPin, XCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import API_URL from '../api/config';
 
 interface Booking {
     _id: string;
@@ -29,7 +30,7 @@ const MyBookings = () => {
         try {
             const token = user?.token;
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
-            const response = await axios.get('http://localhost:5000/api/bookings/my-bookings', { headers });
+            const response = await axios.get(`${API_URL}/api/bookings/my-bookings`, { headers });
             setBookings(response.data);
         } catch (err) {
             console.error(err);
@@ -46,7 +47,7 @@ const MyBookings = () => {
             const sessionId = searchParams.get('session_id');
             if (sessionId) {
                 try {
-                    const response = await axios.post('http://localhost:5000/api/payments/verify-session', { sessionId });
+                    const response = await axios.post(`${API_URL}/api/payments/verify-session`, { sessionId });
                     setSuccessMessage('Payment successful! Your booking is confirmed.');
                     if (response.data.bookingReference) {
                         setBookingReference(response.data.bookingReference);
@@ -74,7 +75,7 @@ const MyBookings = () => {
         try {
             const token = user?.token;
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
-            await axios.put(`http://localhost:5000/api/bookings/${bookingId}/cancel`, {}, { headers });
+            await axios.put(`${API_URL}/api/bookings/${bookingId}/cancel`, {}, { headers });
 
             // Refresh bookings
             fetchBookings();

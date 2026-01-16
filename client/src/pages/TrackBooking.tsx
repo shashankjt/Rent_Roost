@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Search, Calendar, MapPin, XCircle, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import API_URL from '../api/config';
 
 const TrackBooking = () => {
     const [reference, setReference] = useState('');
@@ -20,7 +21,7 @@ const TrackBooking = () => {
         setCancelSuccess(false);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/bookings/track', {
+            const response = await axios.post(`${API_URL}/api/bookings/track`, {
                 bookingReference: reference.toUpperCase(),
                 guestPhone: phone
             });
@@ -37,13 +38,13 @@ const TrackBooking = () => {
 
         setCancelLoading(true);
         try {
-            await axios.post('http://localhost:5000/api/bookings/guest-cancel', {
+            await axios.post(`${API_URL}/api/bookings/guest-cancel`, {
                 bookingReference: reference.toUpperCase(),
                 guestPhone: phone
             });
             setCancelSuccess(true);
             // Refresh booking data
-            const response = await axios.post('http://localhost:5000/api/bookings/track', {
+            const response = await axios.post(`${API_URL}/api/bookings/track`, {
                 bookingReference: reference.toUpperCase(),
                 guestPhone: phone
             });

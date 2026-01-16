@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { Listing } from '../types/Listing';
+import API_URL from '../api/config';
 
 const Home = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -12,7 +13,7 @@ const Home = () => {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/listings');
+                const response = await axios.get(`${API_URL}/api/listings`);
                 setListings(response.data);
             } catch (err) {
                 console.error('Error fetching listings:', err);
