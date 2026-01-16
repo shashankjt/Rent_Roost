@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Loader2, Calendar, MapPin, XCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import API_URL from '../api/config';
+import { getImageUrl } from '../utils/image';
 
 interface Booking {
     _id: string;
@@ -132,7 +133,7 @@ const MyBookings = () => {
                     {bookings.map((booking) => (
                         <div key={booking._id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6">
                             <img
-                                src={booking.listing.image}
+                                src={getImageUrl(booking.listing.image)}
                                 alt={booking.listing.title}
                                 className="w-full md:w-48 h-32 object-cover rounded-xl"
                             />

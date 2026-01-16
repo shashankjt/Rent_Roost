@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 // Serve static files from the "House Images" directory
 import path from 'path';
 app.use('/images', express.static(path.join(__dirname, '../data/House Images')));
+app.use('/data', express.static(path.join(__dirname, '../data')));
 
 // Routes
 app.use('/api/auth', authRoutes);

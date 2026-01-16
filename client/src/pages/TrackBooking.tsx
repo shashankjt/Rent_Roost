@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Search, Calendar, MapPin, XCircle, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import API_URL from '../api/config';
+import { getImageUrl } from '../utils/image';
 
 const TrackBooking = () => {
     const [reference, setReference] = useState('');
@@ -110,7 +111,7 @@ const TrackBooking = () => {
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-in">
                     <div className="relative h-48">
                         <img
-                            src={booking.listing.image}
+                            src={getImageUrl(booking.listing.image)}
                             alt={booking.listing.title}
                             className="w-full h-full object-cover"
                         />

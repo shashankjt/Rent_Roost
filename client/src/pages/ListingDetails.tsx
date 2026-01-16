@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import API_URL from '../api/config';
+import { getImageUrl } from '../utils/image';
 
 const amenityIcons: Record<string, React.ElementType> = {
     wifi: Wifi,
@@ -175,7 +176,7 @@ const ListingDetails = () => {
             {/* Header Images */}
             <div className="rounded-3xl overflow-hidden shadow-lg mb-8 h-[400px] sm:h-[500px] relative group">
                 <img
-                    src={listing.image}
+                    src={getImageUrl(listing.image)}
                     alt={listing.title}
                     className="w-full h-full object-cover"
                 />
@@ -207,7 +208,7 @@ const ListingDetails = () => {
 
                     <div className="border-t border-b border-gray-100 py-6 flex items-center gap-4">
                         <img
-                            src={listing.host.image}
+                            src={getImageUrl(listing.host.image)}
                             alt={listing.host.name}
                             className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm"
                         />

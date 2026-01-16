@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { Listing } from '../types/Listing';
 import API_URL from '../api/config';
+import { getImageUrl } from '../utils/image';
 
 const Home = () => {
     const [listings, setListings] = useState<Listing[]>([]);
@@ -107,7 +108,7 @@ const Home = () => {
                         <Link to={`/listings/${item.id}`} key={item.id} className="group block">
                             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                                 <div className="relative h-64 overflow-hidden">
-                                    <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                    <img src={getImageUrl(item.image)} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
                                         <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
                                         <span className="text-sm font-bold text-gray-800">{item.rating}</span>
