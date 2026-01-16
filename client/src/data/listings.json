@@ -1,0 +1,737 @@
+[
+    {
+        "id": 21,
+        "title": "Modern Loft in NYC",
+        "description": "Experience the best of New York City in this stunning modern loft. Located in the heart of Manhattan, you are steps away from the best restaurants, shops, and attractions. The loft features high ceilings, large windows, and a fully equipped kitchen. Perfect for couples or business travelers looking for a stylish and comfortable stay.",
+        "price": 150,
+        "rating": 4.9,
+        "reviews": 128,
+        "location": "New York, NY",
+        "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "host": {
+            "name": "Sarah Jenkins",
+            "image": "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+        },
+        "amenities": [
+            "wifi",
+            "parking",
+            "coffee",
+            "kitchen"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        ]
+    },
+    {
+        "id": 22,
+        "title": "Seaside Villa",
+        "description": "Relax and unwind in this beautiful seaside villa. Enjoy stunning ocean views, a private pool, and direct beach access. The villa is spacious and elegantly decorated, offering the perfect blend of luxury and comfort.",
+        "price": 250,
+        "rating": 5.0,
+        "reviews": 85,
+        "location": "Malibu, CA",
+        "image": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "host": {
+            "name": "Mike Ross",
+            "image": "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+        },
+        "amenities": [
+            "wifi",
+            "parking",
+            "pool",
+            "beach_access",
+            "kitchen"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        ]
+    },
+    {
+        "id": 23,
+        "title": "Mountain Cabin",
+        "description": "Escape to the mountains in this cozy cabin. Nestled in the woods, this cabin offers peace and tranquility. Enjoy hiking, skiing, or simply relaxing by the fireplace. The cabin is fully equipped with everything you need for a comfortable stay.",
+        "price": 120,
+        "rating": 4.8,
+        "reviews": 210,
+        "location": "Aspen, CO",
+        "image": "https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        "host": {
+            "name": "Jenny Wilson",
+            "image": "https://i.pravatar.cc/150?u=a042581f4e29026704e"
+        },
+        "amenities": [
+            "wifi",
+            "parking",
+            "fireplace",
+            "hiking"
+        ],
+        "images": [
+            "https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+        ]
+    },
+    [
+        {
+            "id": 21,
+            "title": "Modern Loft in Manhattan",
+            "description": "Experience the best of New York City in this stunning modern loft. Located in the heart of Manhattan, you are steps away from the best restaurants, shops, and attractions. The loft features high ceilings, large windows, and a fully equipped kitchen. Perfect for couples or business travelers looking for a stylish and comfortable stay.",
+            "price": 280,
+            "rating": 4.9,
+            "reviews": 128,
+            "location": "New York, NY",
+            "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            "host": {
+                "name": "Sarah Jenkins",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            },
+            "amenities": [
+                "wifi",
+                "elevator",
+                "coffee_maker",
+                "kitchen",
+                "smart_tv"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800"
+            ]
+        },
+        {
+            "id": 22,
+            "title": "Seaside Luxury Villa",
+            "description": "Relax and unwind in this beautiful seaside villa. Enjoy stunning ocean views, a private pool, and direct beach access. The villa is spacious and elegantly decorated, offering the perfect blend of luxury and comfort.",
+            "price": 650,
+            "rating": 5.0,
+            "reviews": 85,
+            "location": "Malibu, CA",
+            "image": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            "host": {
+                "name": "Mike Ross",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "pool",
+                "beach_access",
+                "kitchen",
+                "jacuzzi"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1570129477494-cfbc39002277?w=800",
+                "https://images.unsplash.com/photo-1557010492-23c21d8b7c7b?w=800"
+            ]
+        },
+        {
+            "id": 23,
+            "title": "Aspen Mountain Ski Cabin",
+            "description": "Escape to the mountains in this cozy cabin. Nestled in the woods, this cabin offers peace and tranquility. Enjoy hiking, skiing, or simply relaxing by the fireplace. The cabin is fully equipped with everything you need for a comfortable stay.",
+            "price": 400,
+            "rating": 4.8,
+            "reviews": 210,
+            "location": "Aspen, CO",
+            "image": "https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            "host": {
+                "name": "Jenny Wilson",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026704e"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "fireplace",
+                "ski_in_out",
+                "kitchen",
+                "pet_friendly"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1449844908441-8829872d2607?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+                "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=800"
+            ]
+        },
+        {
+            "id": 24,
+            "title": "South Beach Boho House",
+            "description": "A charming and uniquely decorated house perfect for creatives and beach lovers. Located a short walk from South Beach. Features a private patio and plenty of tropical light. Ideal for a vibrant Miami getaway.",
+            "price": 190,
+            "rating": 4.75,
+            "reviews": 92,
+            "location": "Miami, FL",
+            "image": "https://images.unsplash.com/photo-1618220179428-22790b461013?w=800",
+            "host": {
+                "name": "Alex Ramirez",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026705f"
+            },
+            "amenities": [
+                "wifi",
+                "air_conditioning",
+                "patio",
+                "kitchenette",
+                "beach_chairs"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1618220179428-22790b461013?w=1200",
+                "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800",
+                "https://images.unsplash.com/photo-1595524366670-bf290f6587c4?w=800"
+            ]
+        },
+        {
+            "id": 25,
+            "title": "Luxury Condo near Vail Ski Resort",
+            "description": "Experience slopeside luxury in this newly renovated condo near Vail. Communal hot tub, stunning mountain views, and dedicated gear storage included. Perfect for a winter vacation.",
+            "price": 350,
+            "rating": 4.9,
+            "reviews": 61,
+            "location": "Vail, CO",
+            "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+            "host": {
+                "name": "Liam O'Connell",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026706e"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "fireplace",
+                "hot_tub",
+                "ski_access",
+                "gym"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200",
+                "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800",
+                "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800"
+            ]
+        },
+        {
+            "id": 26,
+            "title": "Modern Townhouse in Seattle",
+            "description": "A modern, architecturally designed townhouse in a vibrant Seattle neighborhood. Features large windows, a rooftop deck with views of the city skyline, and proximity to major tech hubs. Great for work or pleasure.",
+            "price": 140,
+            "rating": 4.7,
+            "reviews": 155,
+            "location": "Seattle, WA",
+            "image": "https://images.unsplash.com/photo-1542031737-cd581fccf235?w=800",
+            "host": {
+                "name": "Kenji Tanaka",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026707d"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "rooftop_deck",
+                "washer_dryer",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1542031737-cd581fccf235?w=1200",
+                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+                "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=800"
+            ]
+        },
+        {
+            "id": 27,
+            "title": "Chic Brownstone Apartment",
+            "description": "A beautifully renovated chic apartment in a historic Boston brownstone. Features high ceilings, original hardwood floors, and a charming brick fireplace. Close to universities and Copley Square. Perfect Boston base.",
+            "price": 180,
+            "rating": 4.7,
+            "reviews": 78,
+            "location": "Boston, MA",
+            "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
+            "host": {
+                "name": "Chloe Davies",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026708c"
+            },
+            "amenities": [
+                "wifi",
+                "fireplace",
+                "heating",
+                "walk_to_transit",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200",
+                "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800"
+            ]
+        },
+        {
+            "id": 28,
+            "title": "Eco-Friendly Tiny Home",
+            "description": "Unplug and relax in this beautiful, sustainable tiny home. Surrounded by nature, it offers a perfect escape from city life without sacrificing modern comfort. Experience off-grid living near the city.",
+            "price": 110,
+            "rating": 4.85,
+            "reviews": 112,
+            "location": "Austin, TX",
+            "image": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800",
+            "host": {
+                "name": "Jordan Lee",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026709b"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "solar_power",
+                "firepit",
+                "kitchenette",
+                "pet_friendly"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200",
+                "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800",
+                "https://images.unsplash.com/photo-1616486029423-aaa478965c96?w=800"
+            ]
+        },
+        {
+            "id": 29,
+            "title": "Historic French Quarter Balcony",
+            "description": "Stay in a traditional Creole townhouse with a private balcony overlooking the iconic streets of the French Quarter. High ceilings, antique decor, and close to jazz clubs and restaurants.",
+            "price": 240,
+            "rating": 4.9,
+            "reviews": 188,
+            "location": "New Orleans, LA",
+            "image": "https://images.unsplash.com/photo-1510427902507-69c36294d180?w=800",
+            "host": {
+                "name": "Pierre Dubois",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026701a"
+            },
+            "amenities": [
+                "wifi",
+                "air_conditioning",
+                "balcony",
+                "cable_tv",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1510427902507-69c36294d180?w=1200",
+                "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800",
+                "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800"
+            ]
+        },
+        {
+            "id": 30,
+            "title": "Minimalist Desert Home",
+            "description": "A stunning architectural retreat in the desert, designed for stargazing and tranquility. Floor-to-ceiling glass walls and a modern fireplace. Only minutes from Joshua Tree National Park.",
+            "price": 310,
+            "rating": 4.95,
+            "reviews": 75,
+            "location": "Palm Springs, CA",
+            "image": "https://images.unsplash.com/photo-1517409476229-3b603d7c3d11?w=800",
+            "host": {
+                "name": "Anya Sharma",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026702b"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "fireplace",
+                "stargazing_deck",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1517409476229-3b603d7c3d11?w=1200",
+                "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=800",
+                "https://images.unsplash.com/photo-1522771753035-1a5b6562f329?w=800"
+            ]
+        },
+        {
+            "id": 31,
+            "title": "Capitol Hill Apartment",
+            "description": "Stylish and spacious apartment in the heart of the nation's capital. Just a few blocks from the Capitol Building and Smithsonian museums. Perfect base for exploring Washington D.C.",
+            "price": 160,
+            "rating": 4.7,
+            "reviews": 142,
+            "location": "Washington, D.C.",
+            "image": "https://images.unsplash.com/photo-1587352358055-66795f6612b0?w=800",
+            "host": {
+                "name": "Curtis Jackson",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026703c"
+            },
+            "amenities": [
+                "wifi",
+                "elevator",
+                "gym_access",
+                "washer_dryer",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1587352358055-66795f6612b0?w=1200",
+                "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800",
+                "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800"
+            ]
+        },
+        {
+            "id": 32,
+            "title": "Oceanfront Cabin on the Oregon Coast",
+            "description": "Rustic yet comfortable cabin with breathtaking views of the Pacific Ocean. Enjoy direct access to the secluded beach. Ideal for storm watching and quiet relaxation.",
+            "price": 210,
+            "rating": 4.8,
+            "reviews": 98,
+            "location": "Cannon Beach, OR",
+            "image": "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=800",
+            "host": {
+                "name": "Eliza Thorne",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "fireplace",
+                "beach_access",
+                "kitchen",
+                "deck"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=1200",
+                "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800",
+                "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800"
+            ]
+        },
+        {
+            "id": 33,
+            "title": "Historic Victorian Home",
+            "description": "A beautifully maintained Victorian home filled with antique charm and modern updates. Located in the historic district, walking distance to cafes and parks.",
+            "price": 200,
+            "rating": 4.75,
+            "reviews": 115,
+            "location": "San Francisco, CA",
+            "image": "https://images.unsplash.com/photo-1574044199990-28198f322797?w=800",
+            "host": {
+                "name": "Willow Smith",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026705e"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "garden",
+                "washer_dryer",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1574044199990-28198f322797?w=1200",
+                "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800",
+                "https://images.unsplash.com/photo-1512918760513-0f96bc133422?w=800"
+            ]
+        },
+        {
+            "id": 34,
+            "title": "Denver Mountain View Apartment",
+            "description": "High-rise apartment offering spectacular views of the Rocky Mountains and downtown Denver. Modern amenities, gym access, and close proximity to Union Station.",
+            "price": 170,
+            "rating": 4.6,
+            "reviews": 130,
+            "location": "Denver, CO",
+            "image": "https://images.unsplash.com/photo-1565402170291-8d269de872c0?w=800",
+            "host": {
+                "name": "Ethan Hunt",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026706f"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "gym_access",
+                "air_conditioning",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1565402170291-8d269de872c0?w=1200",
+                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+                "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800"
+            ]
+        },
+        {
+            "id": 35,
+            "title": "Farmhouse Chic Retreat",
+            "description": "Escape to this beautifully decorated farmhouse, mixing rustic charm with modern comfort. Located outside of Nashville, perfect for a peaceful, country getaway.",
+            "price": 260,
+            "rating": 4.9,
+            "reviews": 88,
+            "location": "Nashville, TN",
+            "image": "https://images.unsplash.com/photo-1580587771525-fae3c19b2a5a?w=800",
+            "host": {
+                "name": "Margo Hayes",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026707a"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "firepit",
+                "pet_friendly",
+                "full_kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1580587771525-fae3c19b2a5a?w=1200",
+                "https://images.unsplash.com/photo-1561053473-2d2c12513f59?w=800",
+                "https://images.unsplash.com/photo-1616486029423-aaa478965c96?w=800"
+            ]
+        },
+        {
+            "id": 36,
+            "title": "Phoenix Luxury Home",
+            "description": "Stunning luxury rental in the Scottsdale area of Phoenix. Features a large, shaded pool, outdoor kitchen, and contemporary interior design.",
+            "price": 380,
+            "rating": 4.85,
+            "reviews": 55,
+            "location": "Phoenix, AZ",
+            "image": "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=800",
+            "host": {
+                "name": "Rory Gilmore",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026708b"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "pool",
+                "air_conditioning",
+                "outdoor_grill",
+                "jacuzzi"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=1200",
+                "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800",
+                "https://images.unsplash.com/photo-1557010492-23c21d8b7c7b?w=800"
+            ]
+        },
+        {
+            "id": 37,
+            "title": "Themed Tiny House Village",
+            "description": "A unique stay in a collection of themed tiny houses. Features a communal fire pit and is close to hiking trails and wineries.",
+            "price": 120,
+            "rating": 4.7,
+            "reviews": 160,
+            "location": "Asheville, NC",
+            "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800",
+            "host": {
+                "name": "Sarah Chen",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026709c"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "firepit",
+                "hiking",
+                "kitchenette",
+                "pet_friendly"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200",
+                "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=800",
+                "https://images.unsplash.com/photo-1616594039964-40891a909639?w=800"
+            ]
+        },
+        {
+            "id": 38,
+            "title": "Chicago River North Loft",
+            "description": "Modern industrial loft in Chicago's desirable River North neighborhood. Walking distance to the Magnificent Mile and all major attractions. High ceilings and exposed brick.",
+            "price": 200,
+            "rating": 4.8,
+            "reviews": 105,
+            "location": "Chicago, IL",
+            "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+            "host": {
+                "name": "Marcus Bell",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026701b"
+            },
+            "amenities": [
+                "wifi",
+                "elevator",
+                "gym_access",
+                "air_conditioning",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200",
+                "https://images.unsplash.com/photo-1502005229762-cf1afd38088d?w=800",
+                "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=800"
+            ]
+        },
+        {
+            "id": 39,
+            "title": "Luxury Waterfront Home",
+            "description": "A stunning luxury home on the intracoastal waterway. Private dock access, large deck, and floor-to-ceiling windows offering water views.",
+            "price": 450,
+            "rating": 4.95,
+            "reviews": 40,
+            "location": "Fort Lauderdale, FL",
+            "image": "https://images.unsplash.com/photo-1556912173-3db996e7c3ac?w=800",
+            "host": {
+                "name": "Maria Garcia",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026702c"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "pool",
+                "dock_access",
+                "kitchen",
+                "jacuzzi"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1556912173-3db996e7c3ac?w=1200",
+                "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800",
+                "https://images.unsplash.com/photo-1570129477494-cfbc39002277?w=800"
+            ]
+        },
+        {
+            "id": 40,
+            "title": "Rustic Log Cabin in the Rockies",
+            "description": "An authentic, hand-built log cabin deep in the mountains. Features a wood-burning fireplace and stunning views. Perfect for a secluded, nature retreat.",
+            "price": 250,
+            "rating": 4.8,
+            "reviews": 95,
+            "location": "Jackson Hole, WY",
+            "image": "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=800",
+            "host": {
+                "name": "Ben Wyatt",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026703d"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "fireplace",
+                "hiking",
+                "kitchen",
+                "pet_friendly"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1516085210746-88d447f53995?w=1200",
+                "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?w=800",
+                "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800"
+            ]
+        },
+        {
+            "id": 41,
+            "title": "New England Coastal Home",
+            "description": "A classic shingle-style home right on the coast. Perfect for a summer vacation with ocean breezes and easy access to small town shops and restaurants.",
+            "price": 300,
+            "rating": 4.9,
+            "reviews": 68,
+            "location": "Newport, RI",
+            "image": "https://images.unsplash.com/photo-1557010492-23c21d8b7c7b?w=800",
+            "host": {
+                "name": "Leslie Knope",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026704e"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "deck",
+                "beach_access",
+                "kitchen",
+                "washer_dryer"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1557010492-23c21d8b7c7b?w=1200",
+                "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800",
+                "https://images.unsplash.com/photo-1595246140625-573b715e11d3?w=800"
+            ]
+        },
+        {
+            "id": 42,
+            "title": "Downtown Detroit Penthouse",
+            "description": "Ultra-modern penthouse with panoramic views of the Detroit skyline and river. Walking distance to stadiums and the Theater District. Access to a private rooftop lounge.",
+            "price": 290,
+            "rating": 4.7,
+            "reviews": 72,
+            "location": "Detroit, MI",
+            "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800",
+            "host": {
+                "name": "April Ludgate",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026705f"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "elevator",
+                "gym_access",
+                "rooftop_lounge",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200",
+                "https://images.unsplash.com/photo-1502005229762-cf1afd38088d?w=800",
+                "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800"
+            ]
+        },
+        {
+            "id": 43,
+            "title": "Charming Charleston Single House",
+            "description": "A classic Charleston Single house with double piazzas (porches) and high ceilings. Located in the historic district, perfect for soaking up Southern charm.",
+            "price": 230,
+            "rating": 4.85,
+            "reviews": 90,
+            "location": "Charleston, SC",
+            "image": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800",
+            "host": {
+                "name": "Tom Haverford",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026706e"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "air_conditioning",
+                "porch",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200",
+                "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800",
+                "https://images.unsplash.com/photo-1616486029423-aaa478965c96?w=800"
+            ]
+        },
+        {
+            "id": 44,
+            "title": "Wine Country Estate",
+            "description": "Stay at a private estate surrounded by vineyards. Features a large pool, gourmet kitchen, and beautiful views of the rolling hills. Perfect for a group getaway.",
+            "price": 580,
+            "rating": 5.0,
+            "reviews": 35,
+            "location": "Napa Valley, CA",
+            "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800",
+            "host": {
+                "name": "Donna Meagle",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026707d"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "pool",
+                "kitchen",
+                "jacuzzi",
+                "wine_cellar"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200",
+                "https://images.unsplash.com/photo-1561053473-2d2c12513f59?w=800",
+                "https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?w=800"
+            ]
+        },
+        {
+            "id": 45,
+            "title": "Old Town Scottsdale Condo",
+            "description": "A stylish, modern condo in the heart of Old Town Scottsdale. Walkable to nightlife, shopping, and dining. Access to a communal pool and grilling area.",
+            "price": 160,
+            "rating": 4.7,
+            "reviews": 110,
+            "location": "Scottsdale, AZ",
+            "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+            "host": {
+                "name": "Jerry Gergich",
+                "image": "https://i.pravatar.cc/150?u=a042581f4e29026708c"
+            },
+            "amenities": [
+                "wifi",
+                "parking",
+                "pool",
+                "air_conditioning",
+                "gym_access",
+                "kitchen"
+            ],
+            "images": [
+                "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+                "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800",
+                "https://images.unsplash.com/photo-1595246140625-573b715e11d3?w=800"
+            ]
+        }
+    ]
+]
