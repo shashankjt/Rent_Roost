@@ -15,6 +15,7 @@ const listingSchema = new mongoose.Schema({
     },
     amenities: [{ type: String }],
     images: [{ type: String }],
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {
     timestamps: true,
 });

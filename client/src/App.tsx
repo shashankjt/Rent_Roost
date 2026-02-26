@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext';
 
 import MyBookings from './pages/MyBookings';
 import TrackBooking from './pages/TrackBooking';
+import ListProperty from './pages/ListProperty';
 
 import ErrorPage from './pages/ErrorPage';
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "listings/:id", element: <ListingDetails /> },
       { path: "my-bookings", element: <MyBookings /> },
       { path: "track-booking", element: <TrackBooking /> },
+      { path: "list-property", element: <ListProperty /> },
     ],
   },
 ]);

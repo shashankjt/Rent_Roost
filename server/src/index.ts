@@ -6,6 +6,7 @@ import Listing from './models/Listing';
 import authRoutes from './routes/authRoutes';
 import bookingRoutes from './routes/bookingRoutes';
 import paymentRoutes from './routes/paymentRoutes';
+import listingRoutes from './routes/listingRoutes';
 
 dotenv.config();
 connectDB();
@@ -30,6 +31,7 @@ app.use('/data', express.static(path.join(__dirname, '../data')));
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/listings', listingRoutes);
 
 // Get all listings
 app.get('/api/listings', async (req, res) => {

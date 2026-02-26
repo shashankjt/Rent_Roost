@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 // Create Booking
-// Create Booking
 router.post('/', async (req: any, res) => {
     const { listingId, checkIn, checkOut, totalPrice, guestName, guestPhone, guestEmail } = req.body;
 

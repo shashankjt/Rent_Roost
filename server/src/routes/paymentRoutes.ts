@@ -47,6 +47,8 @@ router.post('/create-checkout-session', async (req, res) => {
             } catch (e) { }
         }
 
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+
         const session = await getStripe().checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -63,8 +65,8 @@ router.post('/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://localhost:5173/my-bookings?success=true&session_id={CHECKOUT_SESSION_ID}&listingId=${listingId}&checkIn=${checkIn}&checkOut=${checkOut}&guestName=${guestName || ''}&guestPhone=${guestPhone || ''}`,
-            cancel_url: `http://localhost:5173/listings/${listingId}?canceled=true`,
+            success_url: `${clientUrl}/my-bookings?success=true&session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${clientUrl}/listings/${listingId}?canceled=true`,
             metadata: {
                 listingId: listingId.toString(),
                 userId: userId || '',

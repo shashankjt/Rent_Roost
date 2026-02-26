@@ -19,6 +19,9 @@ const Layout = () => {
                         <div className="hidden md:flex items-center space-x-8">
                             <Link to="/" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Explore</Link>
                             <Link to="/my-bookings" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Trips</Link>
+                            {user && (
+                                <Link to="/list-property" className="text-indigo-600 hover:text-indigo-700 font-bold transition-colors">List Your Property</Link>
+                            )}
                         </div>
                         <div className="flex items-center gap-4">
                             {user ? (
