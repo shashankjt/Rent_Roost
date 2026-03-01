@@ -61,9 +61,5 @@
     npm run dev
     ```
 
-## 📸 Screenshots
 
-*(Add screenshots of your application here)*
-
----
 © 2026 RentRoost. All rights reserved.
