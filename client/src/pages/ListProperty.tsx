@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2, Camera, MapPin, DollarSign, Home, CheckCircle } from 'lucide-react';
 import API_URL from '../api/config';
 
@@ -31,7 +32,7 @@ const availableImages = [
 const ListProperty = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const queryClient = useQueryClient();
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
 
@@ -42,6 +43,26 @@ const ListProperty = () => {
         location: '',
         image: availableImages[0],
         amenities: [] as string[],
+    });
+
+    const listPropertyMutation = useMutation({
+        mutationFn: async (listingData: any) => {
+            const response = await axios.post(`${API_URL}/api/listings`, listingData, {
+                headers: {
+                    Authorization: `Bearer ${user?.token}`
+                }
+            });
+            return response.data;
+        },
+        onSuccess: () => {
+            setSuccess(true);
+            // Invalidate listings query to refresh home screen cache
+            queryClient.invalidateQueries({ queryKey: ['listings'] });
+            setTimeout(() => navigate('/'), 2000);
+        },
+        onError: (err: any) => {
+            setError(err.response?.data?.message || 'Failed to list property. Please try again.');
+        }
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -58,37 +79,21 @@ const ListProperty = () => {
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!user) {
             setError('You must be logged in to list a property.');
             return;
         }
 
-        setLoading(true);
         setError('');
 
-        try {
-            const response = await axios.post(`${API_URL}/api/listings`, {
-                ...formData,
-                price: Number(formData.price),
-                image: `/images/${formData.image}`,
-                images: [`/images/${formData.image}`]
-            }, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`
-                }
-            });
-
-            if (response.status === 201) {
-                setSuccess(true);
-                setTimeout(() => navigate('/'), 2000);
-            }
-        } catch (err: any) {
-            setError(err.response?.data?.message || 'Failed to list property. Please try again.');
-        } finally {
-            setLoading(false);
-        }
+        listPropertyMutation.mutate({
+            ...formData,
+            price: Number(formData.price),
+            image: `/images/${formData.image}`,
+            images: [`/images/${formData.image}`]
+        });
     };
 
     if (success) {
@@ -178,7 +183,7 @@ const ListProperty = () => {
                                 key={amenity.id}
                                 type="button"
                                 onClick={() => toggleAmenity(amenity.id)}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${formData.amenities.includes(amenity.id)
+                                className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all cursor-pointer ${formData.amenities.includes(amenity.id)
                                         ? 'bg-indigo-50 border-indigo-200 text-indigo-700'
                                         : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
                                     }`}
@@ -201,10 +206,10 @@ const ListProperty = () => {
                                 key={img}
                                 type="button"
                                 onClick={() => setFormData(prev => ({ ...prev, image: img }))}
-                                className={`relative aspect-square rounded-xl overflow-hidden border-4 transition-all ${formData.image === img ? 'border-indigo-600' : 'border-transparent'
+                                className={`relative aspect-square rounded-xl overflow-hidden border-4 transition-all cursor-pointer ${formData.image === img ? 'border-indigo-600' : 'border-transparent'
                                     }`}
                             >
-                                <img src={`http://localhost:5000/images/${img}`} alt="Preview" className="w-full h-full object-cover" />
+                                <img src={`${API_URL}/images/${img}`} alt="Preview" className="w-full h-full object-cover" />
                                 {formData.image === img && (
                                     <div className="absolute inset-0 bg-indigo-600/20 flex items-center justify-center">
                                         <CheckCircle className="h-8 w-8 text-white drop-shadow-md" />
@@ -223,10 +228,10 @@ const ListProperty = () => {
 
                 <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full bg-indigo-600 text-white font-bold py-4 rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-2 disabled:opacity-50"
+                    disabled={listPropertyMutation.isPending}
+                    className="w-full bg-indigo-600 text-white font-bold py-4 rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
                 >
-                    {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Create Listing'}
+                    {listPropertyMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Create Listing'}
                 </button>
             </form>
         </div>

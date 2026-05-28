@@ -7,12 +7,23 @@ import Signup from './pages/Signup.tsx';
 import ListingDetails from './pages/ListingDetails.tsx';
 
 import { AuthProvider } from './context/AuthContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import MyBookings from './pages/MyBookings';
 import TrackBooking from './pages/TrackBooking';
 import ListProperty from './pages/ListProperty';
+import Profile from './pages/Profile';
 
 import ErrorPage from './pages/ErrorPage';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -27,15 +38,18 @@ const router = createBrowserRouter([
       { path: "my-bookings", element: <MyBookings /> },
       { path: "track-booking", element: <TrackBooking /> },
       { path: "list-property", element: <ListProperty /> },
+      { path: "profile", element: <Profile /> },
     ],
   },
 ]);
 
 function App() {
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 

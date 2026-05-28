@@ -4,14 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "cypress run"
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.5.3",
     "@tailwindcss/vite": "^4.1.17",
+    "@tanstack/react-query": "^5.66.0",
     "@types/react-datepicker": "^6.2.0",
     "axios": "^1.13.2",
     "lucide-react": "^0.555.0",
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.22",
+    "cypress": "^13.17.0",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",

@@ -26,10 +26,16 @@ const Layout = () => {
                         <div className="flex items-center gap-4">
                             {user ? (
                                 <>
-                                    <span className="text-sm font-medium text-gray-700">Hello, {user.name}</span>
+                                    <Link 
+                                        to="/profile" 
+                                        className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors bg-gray-50 px-3 py-2 rounded-md border border-gray-200 flex items-center gap-2 hover:bg-gray-100"
+                                    >
+                                        <User className="h-4 w-4 text-indigo-500" />
+                                        <span>Hello, {user.name}</span>
+                                    </Link>
                                     <button
                                         onClick={logout}
-                                        className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors px-3 py-2 rounded-md hover:bg-gray-100"
+                                        className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors px-3 py-2 rounded-md hover:bg-gray-100 cursor-pointer"
                                     >
                                         <LogOut className="h-4 w-4" />
                                         Logout

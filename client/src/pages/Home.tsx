@@ -1,33 +1,33 @@
 import { Search, MapPin, Calendar, Users, Star, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { Listing } from '../types/Listing';
 import API_URL from '../api/config';
 import { getImageUrl } from '../utils/image';
 
+const fetchListings = async ({ pageParam = 0 }) => {
+    const response = await axios.get(`${API_URL}/api/listings?cursor=${pageParam}&limit=6`);
+    return response.data;
+};
+
 const Home = () => {
-    const [listings, setListings] = useState<Listing[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+        error
+    } = useInfiniteQuery({
+        queryKey: ['listings'],
+        queryFn: fetchListings,
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined
+    });
 
-    useEffect(() => {
-        const fetchListings = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/listings`);
-                setListings(response.data);
-            } catch (err) {
-                console.error('Error fetching listings:', err);
-                setError('Failed to load listings. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        };
+    const listings = data?.pages.flatMap((page) => page.listings) || [];
 
-        fetchListings();
-    }, []);
-
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="flex justify-center items-center h-[60vh]">
                 <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
@@ -38,7 +38,7 @@ const Home = () => {
     if (error) {
         return (
             <div className="flex justify-center items-center h-[60vh] text-red-500">
-                {error}
+                Failed to load listings. Please try again later.
             </div>
         );
     }
@@ -103,8 +103,7 @@ const Home = () => {
             <section>
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Properties</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* Dynamic Data Cards */}
-                    {listings.map((item) => (
+                    {listings.map((item: any) => (
                         <Link to={`/listings/${item.id}`} key={item.id} className="group block">
                             <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                                 <div className="relative h-64 overflow-hidden">
@@ -132,6 +131,25 @@ const Home = () => {
                         </Link>
                     ))}
                 </div>
+
+                {hasNextPage && (
+                    <div className="flex justify-center mt-12">
+                        <button
+                            onClick={() => fetchNextPage()}
+                            disabled={isFetchingNextPage}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg disabled:bg-indigo-400 flex items-center gap-2 cursor-pointer"
+                        >
+                            {isFetchingNextPage ? (
+                                <>
+                                    <Loader2 className="h-5 w-5 animate-spin" />
+                                    Loading...
+                                </>
+                            ) : (
+                                'Load More Properties'
+                            )}
+                        </button>
+                    </div>
+                )}
             </section>
         </div>
     );

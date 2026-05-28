@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { Star, MapPin, Wifi, Car, Coffee, Utensils, Waves, Umbrella, Flame, Mountain, ArrowLeft, Loader2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import type { Listing } from '../types/Listing';
 import { useAuth } from '../context/AuthContext';
@@ -33,9 +34,6 @@ const amenityLabels: Record<string, string> = {
 
 const ListingDetails = () => {
     const { id } = useParams<{ id: string }>();
-    const [listing, setListing] = useState<Listing | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const { user } = useAuth();
 
     // Booking State
@@ -43,32 +41,52 @@ const ListingDetails = () => {
     const [checkOut, setCheckOut] = useState<Date | null>(null);
     const [guestName, setGuestName] = useState('');
     const [guestPhone, setGuestPhone] = useState('');
-    const [bookingLoading, setBookingLoading] = useState(false);
-    const [bookingSuccess, setBookingSuccess] = useState(false);
     const [bookingError, setBookingError] = useState('');
-    const [unavailableDates, setUnavailableDates] = useState<{ checkIn: string; checkOut: string }[]>([]);
 
-    useEffect(() => {
-        const fetchListing = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/listings/${id}`);
-                setListing(response.data);
+    // Fetch listing details using React Query
+    const { data: listing, isLoading: listingLoading, error: listingError } = useQuery<Listing>({
+        queryKey: ['listing', id],
+        queryFn: async () => {
+            const response = await axios.get(`${API_URL}/api/listings/${id}`);
+            return response.data;
+        },
+        enabled: !!id
+    });
 
-                // Fetch unavailable dates
-                const datesResponse = await axios.get(`${API_URL}/api/bookings/unavailable-dates/${id}`);
-                setUnavailableDates(datesResponse.data);
-            } catch (err) {
-                console.error('Error fetching listing:', err);
-                setError('Failed to load listing details.');
-            } finally {
-                setLoading(false);
+    // Fetch unavailable dates using React Query
+    const { data: unavailableDates = [], isLoading: datesLoading } = useQuery<{ checkIn: string; checkOut: string }[]>({
+        queryKey: ['unavailableDates', id],
+        queryFn: async () => {
+            const response = await axios.get(`${API_URL}/api/bookings/unavailable-dates/${id}`);
+            return response.data;
+        },
+        enabled: !!id
+    });
+
+    // Booking Mutation using React Query
+    const bookingMutation = useMutation({
+        mutationFn: async (bookingData: any) => {
+            const response = await axios.post(`${API_URL}/api/payments/create-checkout-session`, bookingData);
+            return response.data;
+        },
+        onSuccess: (data) => {
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                setBookingError('Failed to create payment session');
             }
-        };
-
-        if (id) {
-            fetchListing();
+        },
+        onError: (err: any) => {
+            console.error('Booking Error:', err);
+            if (err.response) {
+                setBookingError(err.response.data.message || 'Server error during booking.');
+            } else if (err.request) {
+                setBookingError('Network error. Please check your connection.');
+            } else {
+                setBookingError(err.message || 'Booking initialization failed.');
+            }
         }
-    }, [id]);
+    });
 
     const getBlockedDates = () => {
         const blockedDates: Date[] = [];
@@ -84,7 +102,7 @@ const ListingDetails = () => {
         return blockedDates;
     };
 
-    const handleBooking = async () => {
+    const handleBooking = () => {
         if (!checkIn || !checkOut) {
             setBookingError('Please select check-in and check-out dates.');
             return;
@@ -100,53 +118,23 @@ const ListingDetails = () => {
             return;
         }
 
-        setBookingLoading(true);
         setBookingError('');
+        const token = user?.token;
+        const totalPrice = listing ? listing.price * 5 + 130 : 0;
 
-        try {
-            const token = user?.token;
-            const totalPrice = listing ? listing.price * 5 + 130 : 0;
-
-            console.log('Creating checkout session...');
-            // Create Checkout Session
-            const response = await axios.post(`${API_URL}/api/payments/create-checkout-session`, {
-                listingId: Number(id),
-                checkIn: checkIn.toISOString(),
-                checkOut: checkOut.toISOString(),
-                totalPrice,
-                guestName: user ? undefined : guestName,
-                guestPhone: user ? undefined : guestPhone,
-                guestEmail: user ? undefined : 'guest@example.com',
-                userToken: token
-            });
-            console.log('Checkout session created:', response.data);
-
-            const { url } = response.data;
-
-            if (url) {
-                console.log('Redirecting to checkout URL:', url);
-                window.location.href = url;
-            } else {
-                console.error('No checkout URL returned');
-                setBookingError('Failed to create payment session');
-            }
-
-        } catch (err: any) {
-            console.error('Booking Error:', err);
-            if (err.response) {
-                console.error('Error Response:', err.response.data);
-                setBookingError(err.response.data.message || 'Server error during booking.');
-            } else if (err.request) {
-                console.error('Error Request:', err.request);
-                setBookingError('Network error. Please check your connection.');
-            } else {
-                setBookingError(err.message || 'Booking initialization failed.');
-            }
-        } finally {
-            setBookingLoading(false);
-        }
+        bookingMutation.mutate({
+            listingId: Number(id),
+            checkIn: checkIn.toISOString(),
+            checkOut: checkOut.toISOString(),
+            totalPrice,
+            guestName: user ? undefined : guestName,
+            guestPhone: user ? undefined : guestPhone,
+            guestEmail: user ? undefined : 'guest@example.com',
+            userToken: token
+        });
     };
-    if (loading) {
+
+    if (listingLoading || datesLoading) {
         return (
             <div className="flex justify-center items-center h-[60vh]">
                 <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
@@ -154,10 +142,10 @@ const ListingDetails = () => {
         );
     }
 
-    if (error || !listing) {
+    if (listingError || !listing) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">{error || 'Listing not found'}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Failed to load listing details</h2>
                 <p className="text-gray-600 mb-8">The property you are looking for does not exist.</p>
                 <Link to="/" className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-colors">
                     Go back home
@@ -256,85 +244,70 @@ const ListingDetails = () => {
                             </div>
                         </div>
 
-                        {bookingSuccess ? (
-                            <div className="bg-green-50 text-green-700 p-4 rounded-xl text-center">
-                                <p className="font-bold text-lg mb-2">Booking Confirmed!</p>
-                                <p className="text-sm">Thank you for your reservation.</p>
-                                <button
-                                    onClick={() => setBookingSuccess(false)}
-                                    className="mt-4 text-indigo-600 font-semibold hover:text-indigo-800 text-sm"
-                                >
-                                    Book another date
-                                </button>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="space-y-4 mb-6">
-                                    <div className="grid grid-cols-2 gap-2">
-                                        <div className="border border-gray-300 rounded-lg p-3">
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Check-in</label>
-                                            <DatePicker
-                                                selected={checkIn}
-                                                onChange={(date) => setCheckIn(date)}
-                                                selectsStart
-                                                startDate={checkIn}
-                                                endDate={checkOut}
-                                                minDate={new Date()}
-                                                excludeDates={getBlockedDates()}
-                                                placeholderText="Select date"
-                                                className="w-full text-sm outline-none text-gray-700"
-                                            />
-                                        </div>
-                                        <div className="border border-gray-300 rounded-lg p-3">
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Check-out</label>
-                                            <DatePicker
-                                                selected={checkOut}
-                                                onChange={(date) => setCheckOut(date)}
-                                                selectsEnd
-                                                startDate={checkIn}
-                                                endDate={checkOut}
-                                                minDate={checkIn || new Date()}
-                                                excludeDates={getBlockedDates()}
-                                                placeholderText="Select date"
-                                                className="w-full text-sm outline-none text-gray-700"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {!user && (
-                                        <div className="space-y-3 pt-2">
-                                            <p className="text-sm font-medium text-gray-900">Guest Details</p>
-                                            <input
-                                                type="text"
-                                                placeholder="Full Name"
-                                                value={guestName}
-                                                onChange={(e) => setGuestName(e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                                            />
-                                            <input
-                                                type="tel"
-                                                placeholder="Phone Number"
-                                                value={guestPhone}
-                                                onChange={(e) => setGuestPhone(e.target.value)}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
-                                            />
-                                        </div>
-                                    )}
+                        <div className="space-y-4 mb-6">
+                            <div className="grid grid-cols-2 gap-2">
+                                <div className="border border-gray-300 rounded-lg p-3">
+                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Check-in</label>
+                                    <DatePicker
+                                        selected={checkIn}
+                                        onChange={(date) => setCheckIn(date)}
+                                        selectsStart
+                                        startDate={checkIn}
+                                        endDate={checkOut}
+                                        minDate={new Date()}
+                                        excludeDates={getBlockedDates()}
+                                        placeholderText="Select date"
+                                        className="w-full text-sm outline-none text-gray-700"
+                                    />
                                 </div>
+                                <div className="border border-gray-300 rounded-lg p-3">
+                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Check-out</label>
+                                    <DatePicker
+                                        selected={checkOut}
+                                        onChange={(date) => setCheckOut(date)}
+                                        selectsEnd
+                                        startDate={checkIn}
+                                        endDate={checkOut}
+                                        minDate={checkIn || new Date()}
+                                        excludeDates={getBlockedDates()}
+                                        placeholderText="Select date"
+                                        className="w-full text-sm outline-none text-gray-700"
+                                    />
+                                </div>
+                            </div>
 
-                                {bookingError && (
-                                    <div className="text-red-500 text-sm mb-4 text-center">{bookingError}</div>
-                                )}
+                            {!user && (
+                                <div className="space-y-3 pt-2">
+                                    <p className="text-sm font-medium text-gray-900">Guest Details</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Full Name"
+                                        value={guestName}
+                                        onChange={(e) => setGuestName(e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    />
+                                    <input
+                                        type="tel"
+                                        placeholder="Phone Number"
+                                        value={guestPhone}
+                                        onChange={(e) => setGuestPhone(e.target.value)}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    />
+                                </div>
+                            )}
+                        </div>
 
-                                <button
-                                    onClick={handleBooking}
-                                    disabled={bookingLoading}
-                                    className="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex justify-center items-center"
-                                >
-                                    {bookingLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Reserve'}
-                                </button>
-                            </>
+                        {bookingError && (
+                            <div className="text-red-500 text-sm mb-4 text-center">{bookingError}</div>
                         )}
+
+                        <button
+                            onClick={handleBooking}
+                            disabled={bookingMutation.isPending}
+                            className="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex justify-center items-center cursor-pointer"
+                        >
+                            {bookingMutation.isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Reserve'}
+                        </button>
 
                         <p className="text-center text-xs text-gray-400 mt-4">You won't be charged yet</p>
 

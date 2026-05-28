@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Loader2, Calendar, MapPin, XCircle } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import API_URL from '../api/config';
 import { getImageUrl } from '../utils/image';
 
@@ -21,69 +22,75 @@ interface Booking {
 
 const MyBookings = () => {
     const { user } = useAuth();
-    const [bookings, setBookings] = useState<Booking[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [successMessage, setSuccessMessage] = useState('');
+    const [bookingReference, setBookingReference] = useState('');
+    const [error, setError] = useState('');
 
-    const fetchBookings = async () => {
-        try {
+    // Fetch user bookings
+    const { data: bookings = [], isLoading: bookingsLoading, refetch } = useQuery<Booking[]>({
+        queryKey: ['myBookings', user?._id],
+        queryFn: async () => {
             const token = user?.token;
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
             const response = await axios.get(`${API_URL}/api/bookings/my-bookings`, { headers });
-            setBookings(response.data);
-        } catch (err) {
-            console.error(err);
-            setError('Failed to fetch bookings.');
-        } finally {
-            setLoading(false);
-        }
-    };
+            return response.data;
+        },
+        enabled: !!user && !searchParams.get('session_id'),
+    });
 
-    const [bookingReference, setBookingReference] = useState('');
-
-    useEffect(() => {
-        const verifyPayment = async () => {
-            const sessionId = searchParams.get('session_id');
-            if (sessionId) {
-                try {
-                    const response = await axios.post(`${API_URL}/api/payments/verify-session`, { sessionId });
-                    setSuccessMessage('Payment successful! Your booking is confirmed.');
-                    if (response.data.bookingReference) {
-                        setBookingReference(response.data.bookingReference);
-                    }
-                    // Remove params from URL
-                    setSearchParams({});
-                    if (user) fetchBookings();
-                } catch (err) {
-                    console.error(err);
-                    setError('Payment verification failed.');
-                }
-            } else if (user) {
-                fetchBookings();
-            } else {
-                setLoading(false);
+    // Payment verification mutation
+    const verifyPaymentMutation = useMutation({
+        mutationFn: async (sessionId: string) => {
+            const response = await axios.post(`${API_URL}/api/payments/verify-session`, { sessionId });
+            return response.data;
+        },
+        onSuccess: (data) => {
+            setSuccessMessage('Payment successful! Your booking is confirmed.');
+            if (data.bookingReference) {
+                setBookingReference(data.bookingReference);
             }
-        };
+            setSearchParams({});
+            if (user) {
+                refetch();
+            }
+        },
+        onError: (err) => {
+            console.error('Payment verification error:', err);
+            setError('Payment verification failed.');
+        }
+    });
 
-        verifyPayment();
-    }, [user, searchParams]);
-
-    const handleCancel = async (bookingId: string) => {
-        if (!confirm('Are you sure you want to cancel this booking?')) return;
-
-        try {
+    // Cancel booking mutation
+    const cancelBookingMutation = useMutation({
+        mutationFn: async (bookingId: string) => {
             const token = user?.token;
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
-            await axios.put(`${API_URL}/api/bookings/${bookingId}/cancel`, {}, { headers });
-
-            // Refresh bookings
-            fetchBookings();
-        } catch (err) {
+            const response = await axios.put(`${API_URL}/api/bookings/${bookingId}/cancel`, {}, { headers });
+            return response.data;
+        },
+        onSuccess: () => {
+            refetch();
+        },
+        onError: (err) => {
+            console.error('Cancel booking error:', err);
             alert('Failed to cancel booking.');
         }
+    });
+
+    useEffect(() => {
+        const sessionId = searchParams.get('session_id');
+        if (sessionId) {
+            verifyPaymentMutation.mutate(sessionId);
+        }
+    }, [searchParams]);
+
+    const handleCancel = (bookingId: string) => {
+        if (!confirm('Are you sure you want to cancel this booking?')) return;
+        cancelBookingMutation.mutate(bookingId);
     };
+
+    const loading = bookingsLoading || verifyPaymentMutation.isPending || cancelBookingMutation.isPending;
 
     if (loading) {
         return (
@@ -163,7 +170,7 @@ const MyBookings = () => {
                                 {booking.status === 'confirmed' && (
                                     <button
                                         onClick={() => handleCancel(booking._id)}
-                                        className="flex items-center gap-2 text-red-600 hover:text-red-800 text-sm font-bold transition-colors"
+                                        className="flex items-center gap-2 text-red-600 hover:text-red-800 text-sm font-bold transition-colors cursor-pointer"
                                     >
                                         <XCircle className="h-4 w-4" />
                                         Cancel Booking

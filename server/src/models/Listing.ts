@@ -20,6 +20,8 @@ const listingSchema = new mongoose.Schema({
     timestamps: true,
 });
 
+listingSchema.index({ location: 1 });
+
 const Listing = mongoose.model('Listing', listingSchema);
 
 export default Listing;

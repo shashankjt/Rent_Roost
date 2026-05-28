@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: rentroost_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: rentroost_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: rentroost_server
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/rentroost
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=rentroost_secret_key_12345
+      - STRIPE_SECRET_KEY=sk_test_51SaVQ5PyMTe6Xy1YzpiIx3Yke61Lzv1Pm8GzmuPQ9ebO2Nm3WADeKpjifkugcfmyKAqVhbD1KP7TzLWR0bIdDEA400w4RfP76P
+      - STRIPE_PUBLISHABLE_KEY=pk_test_51SaVQ5PyMTe6Xy1YFuy4kIBYd6lkJ7dNmEWNLwvPqTfljgRcfCOzFS2EFuJT1nQVuh4lnh2xpeDwsR2ziHzZdEsi00r7ybWMzP
+      - CLIENT_URL=http://localhost:5173
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      - mongodb
+      - redis
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: rentroost_client
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server
+
+volumes:
+  mongodb_data:
+  redis_data:

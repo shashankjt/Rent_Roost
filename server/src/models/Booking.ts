@@ -17,6 +17,11 @@ const bookingSchema = new mongoose.Schema({
     timestamps: true,
 });
 
+// Indexes for query performance and scalability
+bookingSchema.index({ user: 1 });
+bookingSchema.index({ listing: 1, status: 1, checkIn: 1, checkOut: 1 });
+bookingSchema.index({ bookingReference: 1, guestPhone: 1 });
+
 const Booking = mongoose.model('Booking', bookingSchema);
 
 export default Booking;
